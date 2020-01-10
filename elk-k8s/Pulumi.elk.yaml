@@ -1,0 +1,7 @@
+config:
+  azure-alicorp:createby: pmerje
+  azure-alicorp:environment: pulumi
+  azure-alicorp:location: EastUS
+  azure-alicorp:password: Passw0rd2019$
+  azure-alicorp:sshkey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCTBFKibo0kHC4UhvzM8S1hxVYh9FyUDVPipGPfavhgs+foh6Z0DCBaxOkp5k/ylpmvmoFZjRruSpGOtcSt67v+LsaoWZjhBSzcabknX7eBcz5qtRfFpcl4TLt+mIqSNaAHAyKwilQAwJXMazw9YbN5/II3OKCzJpQUrzg9QpVYm8M0BE+H8P9b6hSdbLGE+jh68AJHk7EkI6Yqm3iWIgPkDc5OWBNLJASQVoG/S/xGrkbtJkxvlK0h9Pe5KONqXCovS2+NZtZ3BB8yM7kiFcSuhbw1D9gKifmQzE8Vq1A+bCN/3cIlaSh3CSf2pEwRA6GlG09KTZM5JGkTLsc25pbr root@PulumiServer
+

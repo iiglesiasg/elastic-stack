@@ -1,0 +1,46 @@
+apiVersion: kibana.k8s.elastic.co/v1alpha1
+kind: Kibana
+metadata:
+  name: kibana-alicorp
+spec:
+  version: 7.4.2
+  nodeCount: 1
+#  elasticsearch:    
+#    hosts: https://elk-es-http.default.svc:9200
+#    password: lsfs9q6h98t5sgt6s9tw4xn7
+#    ssl:
+#      certificateAuthorities: /usr/share/kibana/config/elasticsearch-certs/tls.crt
+#      verificationMode: certificate
+#    username: default-kibana-alicorp-kibana-user
+#  server:
+#    host: "0"
+#    name: kibana-alicorp
+#    ssl:
+#      certificate: /mnt/elastic-internal/http-certs/tls.crt
+#      enabled: true
+#      key: /mnt/elastic-internal/http-certs/tls.key
+#  xpack:
+#    monitoring:
+#      ui:
+#        container:
+#          elasticsearch:
+#            enabled: true
+  podTemplate:
+    spec:
+      containers:
+      - name: kibana
+        resources:
+          requests:
+            memory: 200M
+            cpu: 300m
+          limits:
+            memory: 1Gi
+            cpu: 1
+      nodeSelector:
+        type: compute
+  elasticsearchRef:
+    name: "elk"	  
+  http:    
+    service:
+      spec:
+        type: NodePort

@@ -1,0 +1,9 @@
+config:
+  azure-alicorp:createby: Pulumi
+  azure-alicorp:environment: dev
+  azure-alicorp:group-code: "01"
+  azure-alicorp:location: eastus
+  azure-alicorp:password: alicorp
+  azure-alicorp:sshkey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDNHWDo6MC5ABgC6P7XyMOoSIue8+d0N4fcWtLzrx15J7Jfv0FqjWPkXkE1YOmzy2ijbIdfkLvNo8V6k/g1/qZ7NM3SRYulX5VUsVJ5xfGM32mr+TCLxfDALYfOTp7+pN4APCaQsRnEtO7smTT6jvRJtRS9S5UnevrofNN4To1qsfgdPpkrvOFHly/6m0++UvnEogHrVUmPoVmnkWFitNM8JJm4mQ8VCsuNU4EhaPejWnV3dmnGtEuKefFkvXK3DQ5HF7S9HmOXIAGmuVy5X6MJGxeTTplQ7nZM9Ct3Prdp3pqUYbHdhhTnpqFb3EQpQR0BAEt7B5RpnfsG63YfT+6mLis2FvZpQ1GDiMpbdRcdL7lRdxwX7KTztfIybnjuWla83Wuo+bwwfHbnOIUre2KoDjf9bdMv2qe707fdxoWYXBCUuaLod7hup1WH3I+MFlQBltI1y207Zvg+gPj88LPBsfxQTldllrUtquB6WiKdqZwAscVlFOU80RxiqDz4AS8=
+    everis@fedora
+  azure-typescript:group-code: "001"

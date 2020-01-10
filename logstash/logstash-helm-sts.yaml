@@ -1,0 +1,176 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  creationTimestamp: "2019-10-09T17:09:36Z"
+  generation: 14
+  labels:
+    app: logstash
+    chart: logstash-2.3.0
+    heritage: Tiller
+    release: logstash-helm
+  name: logstash-helm
+  namespace: default
+  resourceVersion: "275371"
+  selfLink: /apis/apps/v1/namespaces/default/statefulsets/logstash-helm
+  uid: 91f85c53-eab7-11e9-8e09-862853a7f922
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: logstash
+      release: logstash-helm
+  serviceName: logstash-helm
+  template:
+    metadata:
+      annotations:
+        checksum/patterns: 62f0fd2cdffa66b3a6a34351bdb8c582d979a00eb2993e1ee7a47b1909b65c04
+        checksum/pipeline: 0c5c245fed112c4560f25d420b3d2f2c999fc81f0b602783ac34902fafb8f6d6
+        checksum/templates: 08c2d71b6218bffab50139e9ad6b42020d1a7c930598e1416f8908af3a11cef0
+      creationTimestamp: null
+      labels:
+        app: logstash
+        release: logstash-helm
+    spec:
+      containers:
+      - env:
+        - name: HTTP_HOST
+          value: 0.0.0.0
+        - name: HTTP_PORT
+          value: "9600"
+        - name: ELASTICSEARCH_HOST
+          value: https://elk-es-http
+        - name: ELASTICSEARCH_PORT
+          value: "9200"
+        - name: LS_JAVA_OPTS
+          value: -Xmx1g -Xms1g
+        - name: CONFIG_RELOAD_AUTOMATIC
+          value: "true"
+        - name: PATH_CONFIG
+          value: /usr/share/logstash/pipeline
+        - name: PATH_DATA
+          value: /usr/share/logstash/data
+        - name: QUEUE_CHECKPOINT_WRITES
+          value: "1"
+        - name: QUEUE_DRAIN
+          value: "true"
+        - name: QUEUE_MAX_BYTES
+          value: 1gb
+        - name: QUEUE_TYPE
+          value: persisted
+        image: docker.elastic.co/logstash/logstash:7.4.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: monitor
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: logstash
+        ports:
+        - containerPort: 9600
+          name: monitor
+          protocol: TCP
+        - containerPort: 5044
+          name: beats
+          protocol: TCP
+        - containerPort: 9800
+          name: tcp
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /
+            port: monitor
+            scheme: HTTP
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /usr/share/logstash/data
+          name: data
+        - mountPath: /usr/share/logstash/patterns
+          name: patterns
+        - mountPath: /usr/share/logstash/files
+          name: files
+        - mountPath: /usr/share/logstash/pipeline
+          name: pipeline
+        - mountPath: /usr/share/logstash/elastic-ca
+          name: elastic-ca
+        - mountPath: /usr/share/logstash/config/elasticsearch-certs
+          name: elasticsearch-certs
+          readOnly: true
+        - mountPath: /usr/share/logstash/config/trustore
+          name: trustore
+          readOnly: true
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+      serviceAccount: logstash-sa
+      serviceAccountName: logstash-sa
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: logstash-helm-patterns
+        name: patterns
+      - configMap:
+          defaultMode: 420
+          name: logstash-helm-files
+        name: files
+      - configMap:
+          defaultMode: 420
+          name: logstash-helm-pipeline
+        name: pipeline
+      - name: elastic-ca
+        secret:
+          defaultMode: 420
+          secretName: es-ca
+      - name: elasticsearch-certs
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: elk-es-http-certs-public
+      - name: trustore
+        secret:
+          defaultMode: 420
+          optional: false
+          secretName: logstash-trustore
+  updateStrategy:
+    rollingUpdate:
+      partition: 0
+    type: RollingUpdate
+  volumeClaimTemplates:
+  - metadata:
+      creationTimestamp: null
+      name: data
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 5Gi
+      volumeMode: Filesystem
+    status:
+      phase: Pending
+status:
+  collisionCount: 0
+  currentReplicas: 2
+  currentRevision: logstash-helm-5f7cbfdc7
+  observedGeneration: 14
+  readyReplicas: 2
+  replicas: 2
+  updateRevision: logstash-helm-5f7cbfdc7
+  updatedReplicas: 2

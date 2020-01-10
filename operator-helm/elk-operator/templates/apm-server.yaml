@@ -1,0 +1,30 @@
+#
+apiVersion: apm.k8s.elastic.co/v1alpha1
+kind: ApmServer
+metadata:
+  name: apm-server
+  namespace: default
+spec:
+  version: 7.4.2
+  nodeCount: 1
+  SecureSettings:
+    secretName: elk-es-elastic-user
+  #config:
+  #  output:
+  #    elasticsearch:
+  #      hosts: ["https://elk-es-http.default.svc:9200"]
+  #      username: elastic
+  #      password: ${elastic} #l9hmztchfrwdhcz2ttphrhht #tiene que ser un secret
+  #      protocol: "https"
+  #      headers:
+  #        X-My-Header: Saludos terricolas
+  elasticsearchRef:
+    name: "elk"	
+  http: 
+    service:
+      #properties:
+      #  metadata:
+      #    annotations: 
+      #      service.beta.kubernetes.io/azure-load-balancer-internal: "true"
+      spec:
+        type: ClusterIP
